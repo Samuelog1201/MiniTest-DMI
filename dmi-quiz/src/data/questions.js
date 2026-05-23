@@ -132,3 +132,27 @@ export const questions = [
     ]
   }
 ];
+
+/**
+ * Rutas vocacionales por respuesta
+ */
+export const vocationalRoutes = {
+  "videojuegos": {
+    name: "Diseño de Videojuegos",
+    description: "Crea mundos interactivos, narrativas épicas y experiencias de juego revolucionarias.",
+    icon: "🎮",
+    color: "from-purple-600 to-pink-600"
+  },
+  "hipermedia": {
+    name: "Producción Hipermedia",
+    description: "Produce experiencias multimedia que combinan narrativa, imagen y sonido en un universo digital inmersivo.",
+    icon: "🎬",
+    color: "from-blue-600 to-cyan-600"
+  },
+  "digital-product-management": {
+    name: "Gestión de Productos Digitales",
+    description: "Lidera productos digitales desde la idea hasta el lanzamiento, conectando tecnología con usuarios.",
+    icon: "🚀",
+    color: "from-green-600 to-emerald-600"
+  }
+};
