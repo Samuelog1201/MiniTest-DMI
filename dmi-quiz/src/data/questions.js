@@ -13,7 +13,7 @@ export const questions = [
     question: "Cuando usas una app nueva, ¿qué notas primero?",
     answers: [
       {
-        text: "Si es fácil entenderla.",
+        text: "Si es fácil entenderla o te perdió en 3 segundos.",
         type: "ux"
       },
       {
@@ -112,25 +112,29 @@ export const questions = [
   {
     id: 6,
     question: "¿Cuál sería tu dream job? 👀🔥",
-    isRouteQuestion: true,
     answers: [
       {
-        text:
-          "Crear el próximo producto digital que todos quieran usar. 🚀",
-        route: "digital-product-management"
+        text: "Diseñar tu propio videojuego 🎮",
+        route: "videojuegos"
       },
       {
-        text:
-          "Lanzar una experiencia interactiva llena de narrativa, imagen y sonido. 🎬",
+        text: "Crear el próximo producto digital que todos quieran usar 🚀",
+        route: "product-management"
+      },
+      {
+        text: "Lanzar una experiencia interactiva llena de narrativa, imagen y sonido 🎬",
         route: "hipermedia"
       },
       {
-        text:
-          "Diseñar tu propio videojuego. 🎮",
-        route: "videojuegos"
+        text: "Construir una solución con IA que sorprenda a todos 🤖",
+        route: "ia-generativa"
+      },
+      {
+        text: "Convertir una idea en negocio real 💡",
+        route: "innovacion-emprendimiento"
       }
     ]
-  }
+  },
 ];
 
 /**
@@ -138,21 +142,33 @@ export const questions = [
  */
 export const vocationalRoutes = {
   "videojuegos": {
-    name: "Diseño de Videojuegos",
-    description: "Crea mundos interactivos, narrativas épicas y experiencias de juego revolucionarias.",
+    name: "Videojuegos",
+    description: "Crea mundos interactivos, narrativas épicas y experiencias de juego revolucionarias. Diseña mecánicas innovadoras y universos digitales cautivadores.",
     icon: "🎮",
     color: "from-purple-600 to-pink-600"
   },
+  "product-management": {
+    name: "Product Management",
+    description: "Lidera productos digitales desde la idea hasta el lanzamiento. Conecta tecnología con usuarios y estrategia empresarial para crear soluciones que impacten.",
+    icon: "🚀",
+    color: "from-green-600 to-emerald-600"
+  },
   "hipermedia": {
-    name: "Producción Hipermedia",
-    description: "Produce experiencias multimedia que combinan narrativa, imagen y sonido en un universo digital inmersivo.",
+    name: "HipermedIA",
+    description: "Produce experiencias multimedia que combinan narrativa, imagen y sonido en un universo digital inmersivo. Mezcla arte, tecnología y storytelling.",
     icon: "🎬",
     color: "from-blue-600 to-cyan-600"
   },
-  "digital-product-management": {
-    name: "Gestión de Productos Digitales",
-    description: "Lidera productos digitales desde la idea hasta el lanzamiento, conectando tecnología con usuarios.",
-    icon: "🚀",
-    color: "from-green-600 to-emerald-600"
+  "ia-generativa": {
+    name: "IA Generativa",
+    description: "Construye soluciones con inteligencia artificial que generan contenido, automatización y nuevas posibilidades. Diseña el futuro con algoritmos avanzados.",
+    icon: "🤖",
+    color: "from-orange-600 to-yellow-600"
+  },
+  "innovacion-emprendimiento": {
+    name: "Innovación y Emprendimiento",
+    description: "Convierte ideas en negocios reales. Crea startups disruptivas que resuelven problemas y transforman industrias con pensamiento innovador.",
+    icon: "💡",
+    color: "from-red-600 to-pink-600"
   }
 };

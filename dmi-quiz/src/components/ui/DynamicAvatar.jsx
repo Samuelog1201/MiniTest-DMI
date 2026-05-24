@@ -120,21 +120,12 @@ export const DynamicAvatar = ({ profile, animated = true }) => {
           }}
         >
           {/* Fondo circular */}
-          <motion.circle
+          <circle
             cx="0"
             cy="0"
-            r={140}
-            className="fill-black"
+            r="140"
             style={{
               fill: `url(#gradient-${profile})`,
-            }}
-            animate={animated ? {
-              r: [140, 145, 140],
-            } : {}}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
             }}
           />
 

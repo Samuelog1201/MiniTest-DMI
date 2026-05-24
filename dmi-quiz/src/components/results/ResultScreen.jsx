@@ -3,6 +3,7 @@ import { Share2, RotateCw } from 'lucide-react';
 import DynamicAvatar from '../ui/DynamicAvatar';
 import PercentageBar from '../ui/PercentageBar';
 import { vocationalRoutes } from '../../data/questions';
+import { profileResults, routeResults } from '../../data/results';
 
 /**
  * Pantalla de resultados premium con visuales avanzadas
@@ -27,7 +28,9 @@ export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onResta
     dev: 'Constructor Digital',
   };
 
-  const route = vocationalRoutes[vocationalRoute] || vocationalRoutes['digital-product-management'];
+  const route = vocationalRoutes[vocationalRoute] || vocationalRoutes['product-management'];
+  const profileData = profileResults[dominantProfile];
+  const routeData = routeResults[vocationalRoute];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -105,14 +108,33 @@ export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onResta
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.6 }}
       >
-        <div className={`bg-gradient-to-br ${route.color} rounded-2xl p-8 text-white`}>
+        <div className={`bg-gradient-to-br ${route.color} rounded-2xl p-8 text-white overflow-hidden`}>
+          {/* Imagen de ruta si existe */}
+          {routeData?.image && (
+            <motion.div
+              className="mb-6 rounded-lg overflow-hidden h-48 -mx-8 -mt-8 mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+            >
+              <img
+                src={routeData.image}
+                alt={routeData.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+            </motion.div>
+          )}
+
           <motion.div
-            className="flex items-start gap-4 mb-6"
+            className="flex items-start gap-4"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.8, type: 'spring', stiffness: 100 }}
           >
-            <span className="text-5xl">{route.icon}</span>
+            <span className="text-5xl flex-shrink-0">{route.icon}</span>
             <div>
               <h4 className="text-2xl font-bold">{route.name}</h4>
               <p className="text-white/80 mt-2">{route.description}</p>
