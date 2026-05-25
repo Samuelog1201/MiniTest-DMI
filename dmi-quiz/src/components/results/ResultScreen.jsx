@@ -108,7 +108,7 @@ export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onResta
           >
             <motion.button
               onClick={() => {
-                const shareText = `Descubrí mi perfil DMI 🎯\n\nSoy ${data?.title || dominantProfile} y mi ruta vocacional es ${vocationalRoute}. ¿Y tú?`;
+                const shareText = `Descubrí mi perfil DMI 🎯\n\nSoy ${data?.title || dominantProfile} y mi ruta vocacional es ${vocationalRoute}. ¿Y tú? https://mini-test-dmi.vercel.app`;
                 if (navigator.share) {
                   navigator.share({ text: shareText, title: 'DMI Quiz - Universidad Icesi' });
                 } else {
