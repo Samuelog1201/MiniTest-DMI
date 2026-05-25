@@ -1,189 +1,164 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Share2, RotateCw } from 'lucide-react';
-import DynamicAvatar from '../ui/DynamicAvatar';
-import PercentageBar from '../ui/PercentageBar';
-import { vocationalRoutes } from '../../data/questions';
-import { profileResults, routeResults } from '../../data/results';
+import { Share2, RotateCw, PartyPopper } from 'lucide-react';
+import { profileResults } from '../../data/results';
+import ResultCard from './ResultCard';
+import RouteCard from './RouteCard';
+import ScoresSection from './ScoresSection';
+import ImageModal from '../ui/ImageModal';
 
-/**
- * Pantalla de resultados premium con visuales avanzadas
- */
 export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onRestart }) => {
-  const profiles = ['ux', 'ui', 'dev'];
-  const profileLabels = {
-    ux: 'UX',
-    ui: 'UI',
-    dev: 'DEV',
+  const data = profileResults[dominantProfile];
+
+  const [modalImage, setModalImage] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openImage = (image, title) => {
+    setModalImage(image);
+    setModalTitle(title || '');
+    setModalOpen(true);
   };
 
-  const profileColors = {
-    ux: 'icesi-green',
-    ui: 'icesi-purple',
-    dev: 'icesi-orange',
-  };
-
-  const profileDescriptions = {
-    ux: 'Diseñador de Experiencias',
-    ui: 'Creador Visual',
-    dev: 'Constructor Digital',
-  };
-
-  const route = vocationalRoutes[vocationalRoute] || vocationalRoutes['product-management'];
-  const profileData = profileResults[dominantProfile];
-  const routeData = routeResults[vocationalRoute];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
+  const closeImage = () => {
+    setModalOpen(false);
   };
 
   return (
-    <motion.div
-      className="w-full min-h-screen bg-white"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      {/* Hero Section */}
+    <>
       <motion.div
-        className="relative py-16 px-6 text-center overflow-hidden"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        className="w-full min-h-screen bg-gradient-to-b from-white via-blue-50/40 to-white py-8 md:py-16"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        {/* Fondo con blur */}
-        <div className="absolute inset-0 -z-10">
-          <div className={`absolute inset-0 bg-gradient-${dominantProfile} opacity-5 blur-3xl`} />
+        <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" />
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style={{ animationDelay: '2s' }} />
+          <div className="absolute -bottom-8 left-1/3 w-96 h-96 bg-pink-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse-slow" style={{ animationDelay: '4s' }} />
         </div>
 
-        {/* Avatar dinámico */}
-        <div className="flex justify-center mb-8">
-          <DynamicAvatar profile={dominantProfile} animated={true} />
-        </div>
-
-        {/* Descripción del perfil */}
-        <motion.p
-          className="text-xl text-icesi-gray-1 font-medium mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          {profileDescriptions[dominantProfile]}
-        </motion.p>
-      </motion.div>
-
-      {/* Sección de Porcentajes */}
-      <motion.div
-        className="max-w-2xl mx-auto px-6 py-12 space-y-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.6 }}
-      >
-        <div>
-          <h3 className="text-2xl font-bold text-black mb-8">Tu Puntuación</h3>
-          <div className="space-y-8">
-            {profiles.map((profile, index) => (
-              <PercentageBar
-                key={profile}
-                label={profileLabels[profile]}
-                percentage={(scores[profile] / 5) * 100}
-                color={profileColors[profile]}
-                delay={0.1 * (index + 1)}
-              />
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Sección de Ruta Vocacional */}
-      <motion.div
-        className="max-w-2xl mx-auto px-6 py-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.6 }}
-      >
-        <div className={`bg-gradient-to-br ${route.color} rounded-2xl p-8 text-white overflow-hidden`}>
-          {/* Imagen de ruta si existe */}
-          {routeData?.image && (
+        <div className="relative z-10 max-w-5xl mx-auto space-y-12 md:space-y-24">
+          <motion.section
+            className="space-y-8 md:space-y-10"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <motion.div
-              className="mb-6 rounded-lg overflow-hidden h-48 -mx-8 -mt-8 mb-6"
+              className="text-center px-4"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <img
-                src={routeData.image}
-                alt={routeData.title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
-              />
+              <motion.div
+                className="inline-flex items-center gap-2 bg-icesi-blue/10 px-4 py-2 md:px-5 md:py-2.5 rounded-full mb-4 md:mb-6"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <PartyPopper size={16} className="text-icesi-blue" />
+                <span className="text-xs md:text-sm font-semibold text-icesi-blue">
+                  ¡Descubriste tu perfil!
+                </span>
+              </motion.div>
+
+              <motion.h1
+                className="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-3"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                Tu Resultado DMI
+              </motion.h1>
+              <motion.p
+                className="text-sm md:text-lg text-gray-500 max-w-xl mx-auto"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Basado en tus respuestas, este es el perfil que más se alinea contigo
+              </motion.p>
             </motion.div>
-          )}
+
+            <ResultCard profile={dominantProfile} scores={scores} onImageClick={openImage} />
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <ScoresSection scores={scores} />
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+          >
+            <RouteCard route={vocationalRoute} onImageClick={openImage} />
+          </motion.section>
+
+          <motion.section
+            className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+          >
+            <motion.button
+              onClick={() => {
+                const shareText = `Descubrí mi perfil DMI 🎯\n\nSoy ${data?.title || dominantProfile} y mi ruta vocacional es ${vocationalRoute}. ¿Y tú?`;
+                if (navigator.share) {
+                  navigator.share({ text: shareText, title: 'DMI Quiz - Universidad Icesi' });
+                } else {
+                  navigator.clipboard.writeText(shareText);
+                  alert('¡Texto copiado al portapapeles! Comparte tu resultado ✨');
+                }
+              }}
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 md:px-8 md:py-4 bg-white border-2 border-gray-200 text-gray-700 font-bold text-sm md:text-base rounded-2xl hover:border-icesi-blue hover:text-icesi-blue transition-all duration-300 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.03, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Share2 size={18} />
+              <span>Compartir Resultado</span>
+            </motion.button>
+
+            <motion.button
+              onClick={onRestart}
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 md:px-8 md:py-4 bg-gradient-to-r from-icesi-blue to-icesi-purple text-white font-bold text-sm md:text-base rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.03, y: -2, boxShadow: '0 0 40px rgba(84, 84, 233, 0.4)' }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <RotateCw size={18} />
+              <span>Hacer Test de Nuevo</span>
+            </motion.button>
+          </motion.section>
 
           <motion.div
-            className="flex items-start gap-4"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.8, type: 'spring', stiffness: 100 }}
+            className="text-center px-4 pb-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
           >
-            <span className="text-5xl flex-shrink-0">{route.icon}</span>
-            <div>
-              <h4 className="text-2xl font-bold">{route.name}</h4>
-              <p className="text-white/80 mt-2">{route.description}</p>
-            </div>
+            <p className="text-xs md:text-base text-gray-400 italic max-w-2xl mx-auto leading-relaxed">
+              Tu perfil DMI no te define, pero te inspira a descubrir todo tu potencial.
+              Sigue aprendiendo, creciendo y transformando ideas en realidad.
+            </p>
+            <p className="text-xs md:text-sm text-gray-300 mt-3 md:mt-4 font-medium">
+              Universidad Icesi — Diseño de Medios Interactivos
+            </p>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Botones de Acción */}
-      <motion.div
-        className="max-w-2xl mx-auto px-6 py-12 flex gap-4 justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.6 }}
-      >
-        <motion.button
-          onClick={() => {
-            const text = `Descubrí que soy ${profileLabels[dominantProfile]} 🎯 - Ruta: ${route.name}`;
-            navigator.share?.({ text, title: 'DMI Quiz' });
-          }}
-          className="flex items-center gap-2 px-8 py-4 bg-white border-2 border-icesi-blue text-icesi-blue font-bold rounded-2xl hover:bg-icesi-blue hover:text-white transition-all"
-          whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(84, 84, 233, 0.3)' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Share2 size={20} />
-          Compartir
-        </motion.button>
-
-        <motion.button
-          onClick={onRestart}
-          className="flex items-center gap-2 px-8 py-4 bg-gradient-icesi text-white font-bold rounded-2xl shadow-glow hover:shadow-lg transition-all"
-          whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(84, 84, 233, 0.5)' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <RotateCw size={20} />
-          Hacer de nuevo
-        </motion.button>
-      </motion.div>
-
-      {/* Mensaje inspirador */}
-      <motion.p
-        className="text-center text-icesi-gray-1 italic px-6 pb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-      >
-        Recuerda: lo mejor es combinar los 3 perfiles para crear experiencias digitales excepcionales.
-      </motion.p>
-    </motion.div>
+      <ImageModal
+        image={modalImage}
+        title={modalTitle}
+        isOpen={modalOpen}
+        onClose={closeImage}
+      />
+    </>
   );
 };
 
