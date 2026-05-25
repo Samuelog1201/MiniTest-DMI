@@ -21,13 +21,10 @@ export const PercentageBar = ({ label, percentage, color = 'icesi-blue', delay =
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay, duration: 0.6 }}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-4">
         <span className="font-semibold text-black text-lg">{label}</span>
         <motion.span
-          className="font-bold text-2xl text-transparent bg-gradient-to-r bg-clip-text"
-          style={{
-            backgroundImage: `linear-gradient(135deg, var(--color-start), var(--color-end))`,
-          }}
+          className="font-bold text-2xl text-icesi-blue"
           animate={{ scale: [1, 1.05, 1] }}
           transition={{
             duration: 0.6,
