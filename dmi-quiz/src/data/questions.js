@@ -13,7 +13,7 @@ export const questions = [
     question: "Cuando usas una app nueva, ¿qué notas primero?",
     answers: [
       {
-        text: "Si es fácil entenderla o te perdió en 3 segundos.",
+        text: "Si es fácil entenderla o no.",
         type: "ux"
       },
       {
@@ -21,7 +21,7 @@ export const questions = [
         type: "ui"
       },
       {
-        text: "Cómo funciona internamente.",
+        text: "Si todo funciona fluido e interactivo.",
         type: "dev"
       }
     ]
@@ -37,7 +37,7 @@ export const questions = [
         type: "ui"
       },
       {
-        text: "Programar las interacciones y funcionalidades.",
+        text: "Construirla para que realmente funcione.",
         type: "dev"
       },
       {
@@ -81,7 +81,7 @@ export const questions = [
         type: "ui"
       },
       {
-        text: "Desarrollando cómo funcionan las interfaces.",
+        text: "Haciendo que cobre vida técnicamente.",
         type: "dev"
       }
     ]
@@ -93,17 +93,17 @@ export const questions = [
     answers: [
       {
         text:
-          "Me gusta más el código y entender cómo funciona todo por dentro.",
+          "Me gusta más lo que pasa por dentro, el código que hace que todo funcione aunque nadie lo vea, como el motor de un carro.",
         type: "dev"
       },
       {
         text:
-          "Me obsesiona que todo se vea increíble visualmente.",
+          "Me obsesiona que todo se vea bien: los colores, las letras, los botones... que entres a una pantalla y digas 'wow, esto es bonito.",
         type: "ui"
       },
       {
         text:
-          "Me encanta hacer que las apps sean fáciles para todos.",
+          "Me encanta entender cómo hacer que una app sea más fácil para todos.",
         type: "ux"
       }
     ]
