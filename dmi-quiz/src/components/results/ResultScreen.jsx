@@ -5,6 +5,7 @@ import { profileResults } from '../../data/results';
 import ResultCard from './ResultCard';
 import RouteCard from './RouteCard';
 import ScoresSection from './ScoresSection';
+import WhatsAppCta from './WhatsAppCta';
 import ImageModal from '../ui/ImageModal';
 
 export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onRestart }) => {
@@ -134,6 +135,8 @@ export const ResultScreen = ({ scores, dominantProfile, vocationalRoute, onResta
               <span>Hacer Test de Nuevo</span>
             </motion.button>
           </motion.section>
+
+          <WhatsAppCta profile={dominantProfile} route={vocationalRoute} />
 
           <motion.div
             className="text-center px-4 pb-8"
